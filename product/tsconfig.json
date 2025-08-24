@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "paths": {
+      "@/common/*": ["common/*"],
+      "@/config/*": ["config/*"],
+      "@/constants/*": ["constants/*"],
+      "@/email-templates/*": ["email-templates/*"],
+      "@/helpers/*": ["helpers/*"],
+      "@/interfaces/*": ["interfaces/*"],
+      "@/lib/*": ["lib/*"],
+      "@/middlewares/*": ["middlewares/*"],
+      "@/modules/*": ["modules/*"],
+      "@/routes/*": ["routes/*"],
+      "@/shared/*": ["shared/*"],
+      "@/utils/*": ["utils/*"],
+      "@/events/*": ["events/*"]
+    }
+  },
+  "files": ["./src/interfaces/index.d.ts"],
+  "include": [
+    "index.d.ts",
+    "src/**/*.ts",
+    "src/modules/product/product.interface.ts"
+  ],
+  "exclude": ["node_modules"]
+}

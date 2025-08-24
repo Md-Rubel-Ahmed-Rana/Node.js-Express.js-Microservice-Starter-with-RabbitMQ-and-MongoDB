@@ -1,0 +1,14 @@
+services:
+  cloudybd-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    env_file:
+      - .env
+    networks:
+      - cloudybd-server-network
+networks:
+  cloudybd-server-network:
+    driver: bridge
