@@ -8,6 +8,7 @@ class Service {
   private readonly url: string = envConfig.rabbitmq.url;
 
   public async init(): Promise<Channel> {
+    console.log("RabbitMQ is connecting");
     if (this.channel) return this.channel;
 
     const conn: any = await connect(this.url);
@@ -81,7 +82,8 @@ class Service {
     });
   }
 
-  public async close(): Promise<void> {
+  public async closeRabbitMQ(): Promise<void> {
+    console.log("RabbitMQ connection is being closed.");
     if (this.channel) await this.channel.close();
     if (this.connection) await this.connection.close();
 
