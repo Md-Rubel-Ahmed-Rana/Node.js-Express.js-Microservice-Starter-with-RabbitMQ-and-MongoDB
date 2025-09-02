@@ -4,7 +4,8 @@ import { envConfig } from "./config";
 import mongodbConnection from "./config/mongoDbConnection";
 import { RabbitMQService } from "./modules/rabbitmq/rabbitmq.service";
 
-process.on("uncaughtException", (error) => {
+process.on("uncaughtException", async (error) => {
+  await RabbitMQService.closeRabbitMQ();
   console.error(`Uncaught Exception: ${error.message}`, { stack: error.stack });
   process.exit(1);
 });
@@ -21,7 +22,7 @@ async function main() {
     await RabbitMQService.init();
 
     server = app.listen(port, async () => {
-      console.info(` Order microservice is running on port ${port}`);
+      console.info(`Order microservice is running on port ${port}`);
     });
   } catch (error: any) {
     console.error(`❌ Failed to start server: ${error.message}`, {
@@ -30,7 +31,8 @@ async function main() {
     process.exit(1);
   }
 
-  process.on("unhandledRejection", (error: any) => {
+  process.on("unhandledRejection", async (error: any) => {
+    await RabbitMQService.closeRabbitMQ();
     console.error(`Unhandled Promise Rejection: ${error?.message}`, {
       stack: error?.stack,
     });
@@ -44,7 +46,8 @@ async function main() {
 
 main();
 
-process.on("SIGTERM", () => {
+process.on("SIGTERM", async () => {
+  await RabbitMQService.closeRabbitMQ();
   console.warn("SIGTERM received. Shutting down gracefully...");
   if (server) {
     server.close(() => {
